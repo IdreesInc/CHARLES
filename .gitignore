@@ -1,0 +1,10 @@
+
+build/classes/data/Settings.txt
+
+build/classes/data/Logs.txt
+
+src/data/Settings.txt
+
+src/data/Logs.txt
+
+dist/

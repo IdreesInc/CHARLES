@@ -1,0 +1,10 @@
+INPUT_EMAIL:charles@gmail.com
+INPUT_USERNAME:charles
+INPUT_PASSWORD:password
+HOST:smtp.gmail.com
+PHONE_NUMBER:5555555555
+PHONE_CARRIER:Verizon
+EMAIL:user@gmail.com
+EMAIL_USERNAME:user
+EMAIL_PASSWORD:password
+GOOGLE_API_KEY:Insert API key here for testing laboratory 
