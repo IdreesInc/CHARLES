@@ -1,7 +1,8 @@
+/*
+ * Copyright 2015 Idrees Hassan, All Rights Reserved
+ */
 package charles;
 
-import com.gtranslate.Audio;
-import com.gtranslate.Language;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import java.io.BufferedWriter;
@@ -607,17 +608,19 @@ public class CHARLES {
                 text = text.substring(0, text.length() - 6) + text.substring(text.length() - 5);
             }
             try {
-                Audio audio = Audio.getInstance();
+                Speech audio = Speech.getInstance();
                 if (!currentOS.contains("Windows") && !currentOS.contains("Mac")) {
                     text = "Ahem, " + text;
                 }
                 for (String chunk : wordWrap(text.replace("\n", ". ").replace("\r", ". "), 90)) {
-                    sound = audio.getAudio(chunk, Language.ENGLISH);
+                    sound = audio.getAudio(chunk, "en");
                     audio.play(sound);
                 }
             } catch (IOException | JavaLayerException ex) {
                 System.err.println("Unable to use Google's TTS service, instead using FreeTTS");
                 freeTTSVoice.speak(text);
+            } catch (Exception ex) {
+                Logger.getLogger(CHARLES.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     if (sound != null) {

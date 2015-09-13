@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/data/Settings.txt</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/data/Scripts.txt</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/scripts/ObjectWrapper.java</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/scripts/ScriptExecutor.java</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/charles/CHARLES.java</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/laboratory/VoiceListener.java</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/nbproject/project.properties</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/scripts/Script.java</file>
+            <file>file:/Users/idrees/Documents/Programs/Java/CHARLES/src/data/Logs.txt</file>
+        </group>
     </open-files>
 </project-private>

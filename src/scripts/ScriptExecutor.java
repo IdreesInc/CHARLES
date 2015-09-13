@@ -1,3 +1,6 @@
+/*
+ * Copyright 2015 Idrees Hassan, All Rights Reserved
+ */
 package scripts;
 
 import charles.CHARLES;
