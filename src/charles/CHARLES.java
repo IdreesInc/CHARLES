@@ -5,6 +5,7 @@ package charles;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
+import communication.Speech;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,6 +39,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javazoom.jl.decoder.JavaLayerException;
 import laboratory.VoiceListener;
+import communication.cleverbotapi.ChatterBot;
+import communication.cleverbotapi.ChatterBotFactory;
+import communication.cleverbotapi.ChatterBotSession;
+import communication.cleverbotapi.ChatterBotType;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -98,6 +103,9 @@ public class CHARLES {
     public static boolean mute = false;
     static String lastEmailBody;
     public static boolean listen;
+    static ChatterBot cleverbot;
+    static ChatterBotSession cleverbotSession;
+    static boolean useCleverbot = false;
 
     public static void main(String[] args) {
         currentOS = System.getProperty("os.name");
@@ -107,6 +115,9 @@ public class CHARLES {
         initSettings();
         initEmail();
         initIM();
+        if (useCleverbot) {
+            initCleverbot();
+        }
         scriptExecutor.addScripts(read(SCRIPTS_FILE));
         updateEvents();
         scanner = new Scanner(System.in);
@@ -180,6 +191,9 @@ public class CHARLES {
                 case "GOOGLE_API_KEY":
                     GOOGLE_API_KEY = split[1];
                     break;
+                case "USE_CLEVERBOT":
+                    useCleverbot = Boolean.parseBoolean(split[1]);
+                    break;
                 default:
                     System.err.println("Parsing of line in Settings file failed: " + setting);
             }
@@ -249,6 +263,19 @@ public class CHARLES {
     }
 
     /**
+     * Initialize the variables related to Cleverbot
+     */
+    public static void initCleverbot() {
+        ChatterBotFactory factory = new ChatterBotFactory();
+        try {
+            cleverbot = factory.create(ChatterBotType.CLEVERBOT);
+            cleverbotSession = cleverbot.createSession();
+        } catch (Exception ex) {
+            System.err.println("Cleverbot connection failed");
+        }
+    }
+
+    /**
      * Update the scheduledEvents with the data from the Events file
      */
     public static void updateEvents() {
@@ -289,7 +316,10 @@ public class CHARLES {
                 //Check for commands
                 getLastCommand();
                 if (command != null) {
-                    System.out.println("Command Recieved: " + command.toString());
+                    if (!currentMedium.equalsIgnoreCase("CONSOLE")) {
+                        System.out.println("Command Recieved: " + command.toString());
+                    }
+                    String originalInput = command.originalCommand;
                     lastReply = ticks;
                     if (replyPrompt == null) {
                         //Parse new command
@@ -377,7 +407,16 @@ public class CHARLES {
                                     command = new Command(command.originalCommand.substring(command.words[0].length() + 1));
                                 } else {
                                     executed = true;
-                                    output("Sorry sir, but I didn't quite get that!", true);
+                                    if (useCleverbot) {
+                                        try {
+                                            String response = cleverbotSession.think(originalInput);
+                                            output(response, true);
+                                        } catch (Exception ex) {
+                                            output("Sorry sir, but I didn't quite get that!", true);
+                                        }
+                                    } else {
+                                        output("Sorry sir, but I didn't quite get that!", true);
+                                    }
                                 }
                             }
                         }

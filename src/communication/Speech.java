@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Idrees Hassan, All Rights Reserved
  */
-package charles;
+package communication;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;

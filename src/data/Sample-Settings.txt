@@ -7,4 +7,5 @@ PHONE_CARRIER:Verizon
 EMAIL:user@gmail.com
 EMAIL_USERNAME:user
 EMAIL_PASSWORD:password
-GOOGLE_API_KEY:Insert API key here for testing laboratory 
+GOOGLE_API_KEY:Insert API key here for testing laboratory
+USE_CLEVERBOT:True
